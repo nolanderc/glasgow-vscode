@@ -1,0 +1,99 @@
+{
+    "name": "glasgow",
+    "displayName": "glasgow (WGSL)",
+    "description": "WGSL language support: completions, goto-definition, inline documentation, formatter and renaming",
+    "repository": {
+        "url": "https://github.com/nolanderc/glasgow-vscode"
+    },
+    "publisher": "nolanderc",
+    "author": {
+        "name": "Christofer Nolander",
+        "email": "christofer@nolander.me",
+        "url": "https://github.com/nolanderc"
+    },
+    "version": "0.1.0",
+    "icon": "logo.png",
+    "engines": {
+        "vscode": "^1.83.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "main": "./out/main.js",
+    "keywords": [
+        "language server",
+        "completion",
+        "documentation",
+        "wgsl",
+        "shader"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "wgsl",
+                "aliases": [
+                    "WebGPU Shading Language",
+                    "WGSL",
+                    "wgsl"
+                ],
+                "extensions": [
+                    ".wgsl"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "commands": [
+            {
+                "command": "glasgow.stopClient",
+                "title": "WGSL: Stop glasgow"
+            },
+            {
+                "command": "glasgow.restartClient",
+                "title": "WGSL: Restart glasgow"
+            },
+            {
+                "command": "glasgow.download",
+                "title": "WGSL: Download latest version of glasgow"
+            },
+            {
+                "command": "glasgow.version",
+                "title": "WGSL: Get current version of glasgow"
+            }
+        ],
+        "configuration": {
+            "title": "glasgow",
+            "properties": {
+                "glasgow.path": {
+                    "scope": "machine",
+                    "type": "string",
+                    "description": "Path to the `glasgow` executable.",
+                    "format": "path"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run esbuild-base -- --minify",
+        "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node",
+        "esbuild": "npm run esbuild-base -- --sourcemap",
+        "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+        "test-compile": "tsc -p ./"
+    },
+    "dependencies": {
+        "mkdirp": "^3.0.1",
+        "vscode-languageclient": "^9.0.1"
+    },
+    "devDependencies": {
+        "@types/mocha": "^10.0.2",
+        "@types/node": "18.x",
+        "@types/vscode": "^1.83.0",
+        "@typescript-eslint/eslint-plugin": "^6.7.3",
+        "@typescript-eslint/parser": "^6.7.3",
+        "@vscode/test-electron": "^2.3.4",
+        "esbuild": "^0.19.4",
+        "eslint": "^8.50.0",
+        "glob": "^10.3.3",
+        "mocha": "^10.2.0",
+        "typescript": "^5.2.2"
+    }
+}
